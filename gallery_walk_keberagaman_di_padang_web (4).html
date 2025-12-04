@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Keberagaman di Padang — Gallery Walk (Web)</title>
+  <style>
+    :root{
+      --bg:#0f1724; /* deep slate */
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#ffb86b;
+      --accent-2:#7ce7c9;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --radius:18px;
+      --easing:cubic-bezier(.2,.9,.25,1);
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.06), transparent),
+                  linear-gradient(180deg, rgba(2,6,23,1) 0%, var(--bg) 60%);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:16px;
+      display:flex;align-items:flex-start;justify-content:center;
+    }
+    .container{
+      width:100%;max-width:900px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:24px;padding:28px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6);
+      backdrop-filter: blur(6px);
+    }
+
+    header{
+      display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:20px;
+    }
+    .brand{
+      display:flex;gap:14px;align-items:center
+    }
+    .logo{
+      width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;font-weight:700;color:#061523;font-size:20px;box-shadow:0 6px 18px rgba(124,58,237,0.12);
+      transform:rotate(-8deg);
+    }
+    h1{font-size:22px;margin:0;letter-spacing:0.2px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    nav{display:flex;gap:8px;align-items:center}
+    .navbtn{background:transparent;border:1px solid transparent;padding:8px 12px;border-radius:12px;color:var(--muted);font-weight:600;cursor:pointer;transition:all .28s var(--easing)}
+    .navbtn:hover{transform:translateY(-3px);color:var(--accent);text-shadow:0 6px 18px rgba(0,0,0,0.6)}
+
+    main{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    /* left column - flow of content */
+    .flow{display:flex;flex-direction:column;gap:18px}
+
+    .section{
+      background:linear-gradient(180deg,var(--card),transparent);
+      padding:22px;border-radius:16px;border:1px solid var(--glass);box-shadow:0 10px 30px rgba(2,6,23,0.5);
+      transform-origin:center;overflow:hidden;position:relative;
+    }
+    .section::after{
+      content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 10% 20%, rgba(255,184,107,0.03), transparent 10%), radial-gradient(circle at 90% 80%, rgba(124,231,201,0.025), transparent 8%);pointer-events:none;
+    }
+    .section h2{margin:0 0 8px 0;font-size:18px}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));font-size:12px;color:var(--muted);margin-bottom:10px}
+    .section p{color: #dbeafe;line-height:1.6;margin:0 0 12px 0}
+    .muted{color:var(--muted);font-size:13px}
+
+    /* timeline style for konflik */
+    .timeline{position:relative;padding-left:18px;margin-top:12px}
+    .timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),transparent);opacity:0.7}
+    .event{position:relative;padding:10px 10px 10px 22px;margin-bottom:10px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid var(--glass-2);transition:transform .28s var(--easing)}
+    .event:hover{transform:translateX(6px)}
+    .event .year{font-weight:700;color:var(--accent);display:block}
+    .event .title{font-weight:600;margin-top:6px}
+
+    /* cards for right column */
+    .sidebar{display:flex;flex-direction:column;gap:12px}
+    .card{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid var(--glass);}
+    .stat{font-weight:800;font-size:18px}
+    .mini{font-size:13px;color:var(--muted)}
+
+    /* fancy decorative divider */
+    .divider{height:2px;border-radius:8px;background:linear-gradient(90deg, transparent,var(--accent),transparent);margin:8px 0}
+
+    /* animations */
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+    .logo{animation:floaty 6s var(--easing) infinite}
+
+    /* responsive */
+    @media (max-width:980px){
+      main{grid-template-columns:1fr;}
+      .container{padding:20px}
+    }
+
+    /* clickable quicklinks */
+    .quicklinks{display:flex;gap:6px;flex-wrap:wrap}
+    .pill{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--muted);cursor:pointer;transition:all .24s}
+    .pill:hover{transform:translateY(-4px);color:var(--accent)}
+
+    /* fine print: ensure no print button etc */
+    footer{display:flex;justify-content:space-between;align-items:center;margin-top:18px;color:var(--muted);font-size:13px}
+
+    /* smooth in-view reveal */
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--easing),transform .6s var(--easing)}
+    .reveal.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <div class="brand">
+        <div class="logo">GK</div>
+        <div>
+          <h1>Padang: Harmoni di Tengah Keberagaman</h1>
+          <p class="lead">Penjelasan mendalam tentang konflik, pakaian adat, makanan, dan rumah adat Minangkabau.</p>
+        </div>
+      </div>
+      <nav aria-label="navigasi cepat">
+        <div class="quicklinks">
+          <button class="pill" data-target="konflik">Konflik</button>
+          <button class="pill" data-target="pakaian">Pakaian Adat</button>
+          <button class="pill" data-target="makanan">Makanan</button>
+          <button class="pill" data-target="rumah">Rumah Gadang</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="flow">
+
+        <!-- 1. Konflik -->
+        <article id="konflik" class="section reveal">
+          <span class="kicker">1 • Konflik</span>
+          <h2>Perang Padri — Latar, Penyebab, dan Dampak Sosial</h2>
+
+          <p class="muted">Ringkasan:</p>
+          <p>Perang Padri (kurun sekitar 1803–1838) adalah rentetan konflik sosial-budaya di Minangkabau yang berawal dari perbedaan interpretasi religius dan praktik adat. Kaum Padri — terinspirasi oleh gerakan puritan Islam yang kembali dari tanah suci — menuntut reformasi moral dan penghapusan praktik yang mereka anggap bid'ah. Kaum Adat mempertahankan sistem adat (adat basandi syarak, syarak basandi kitabullah) dan struktur matrilineal Minangkabau. Ketika Belanda memanfaatkan perpecahan ini, konflik semakin kompleks dan memunculkan efek panjang pada struktur adat, politik lokal, dan hubungan dengan kekuasaan kolonial.</p>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <h3 style="margin-top:8px">Akar Penyebab (lebih detail)</h3>
+          <ul class="muted" style="margin-top:8px">
+            <li><strong>Reformisme keagamaan:</strong> Pengaruh wahdatul-hayat & pencerahan dari haji/habib yang kembali membawa gagasan penegakan syariat.</li>
+            <li><strong>Persaingan kepemimpinan lokal:</strong> Pertarungan otoritas antara pemimpin adat (penghulu) dan ulama/pendukung Padri.</li>
+            <li><strong>Perbedaan praktik sosial:</strong> Hukum adat matrilineal, upacara adat, dan norma-norma moral yang dipertanyakan oleh petinggi Padri.</li>
+            <li><strong>Intervensi kolonial:</strong> Kedatangan Belanda yang memanfaatkan celah politik untuk memperluas kontrol wilayah.</li>
+          </ul>
+
+          <h3 style="margin-top:12px">Garis Waktu & Peristiwa Penting</h3>
+          <div class="timeline" aria-hidden="true">
+            <div class="event"><span class="year">~1803</span><span class="title">Munculnya gerakan Padri — kelompok bermotif agama mulai menekan praktik adat</span></div>
+            <div class="event"><span class="year">1815–1821</span><span class="title">Konflik berskala lokal memanas; perlawanan adat muncul</span></div>
+            <div class="event"><span class="year">1821–1837</span><span class="title">Intervensi Belanda meningkat; pertempuran besar terjadi, pembagian wilayah</span></div>
+            <div class="event"><span class="year">1838</span><span class="title">Kesepakatan dan penurunan intensitas konflik—awal integrasi bawah kendali kolonial</span></div>
+          </div>
+
+          <h3 style="margin-top:12px">Dampak Sosial dan Budaya (analisis mendalam)</h3>
+          <p>Perang Padri berdampak multidimensi: melemahkan struktur ekonomi lokal, mengubah legitimasi kepemimpinan adat, dan mempercepat penetrasi hukum kolonial. Selain itu, konflik menimbulkan trauma sosial yang tercermin dalam praktik budaya—sebagian tradisi disesuaikan, sebagian lain dilestarikan sebagai bentuk identitas simbolik. Proses rekonsiliasi pasca konflik mengandung pelajaran penting tentang bagaimana komunikasi antar kelompok harus dibangun: melalui perundingan, komitmen pada norma bersama, dan pengakuan terhadap pluralitas interpretasi nilai.</p>
+
+          <h3 style="margin-top:12px">Pertanyaan Kritis untuk Siswa</h3>
+          <ol class="muted">
+            <li>Apa peran pihak ketiga (seperti kolonial) dalam memperumit konflik internal?</li>
+            <li>Bagaimana matrilinealitas mempengaruhi struktur kekuasaan yang diperebutkan?</li>
+            <li>Pelajaran apa yang dapat diambil untuk menyelesaikan konflik nilai di masyarakat modern?</li>
+          </ol>
+        </article>
+
+        <!-- 2. Pakaian -->
+        <article id="pakaian" class="section reveal">
+          <span class="kicker">2 • Pakaian Adat</span>
+          <h2>Pakaian Adat Minangkabau — Filosofi, Unsur, dan Makna Sosial</h2>
+
+          <p class="muted">Gambaran umum:</p>
+          <p>Pakaian adat Minangkabau memadukan ornamen, potongan, dan warna yang sarat simbol. Selain estetika, tiap elemen pakaian berfungsi sebagai penanda status, peran sosial, dan nilai moral. Banyak motif pada songket dan aksesoris yang memiliki cerita — dari kosmologi, hubungan keluarga, hingga status ekonomi.</p>
+
+          <div class="divider"></div>
+
+          <h3>Busana Perempuan (detail lengkap)</h3>
+          <p><strong>Baju kurung</strong> dengan lapisan songket halus biasanya dipadukan dengan <strong>tengkuluk</strong> — hiasan kepala yang bentuknya menyerupai tanduk kerbau. Tengkuluk bukan sekadar estetika: ia menunjuk pada kebijaksanaan, martabat perempuan, dan peran sentral dalam garis keturunan matrilineal. Pilihan warna, sulaman, dan corak songket sering menunjukkan status keluarga dan fungsi acara (pernikahan, upacara adat, dsb.).</p>
+
+          <h3>Busana Laki-laki (detail lengkap)</h3>
+          <p>Laki-laki mengenakan <strong>teluk belanga</strong> atau baju kurung versi lelaki, dipadu <strong>songket</strong> pinggang dan penutup kepala seperti <em>deta</em> atau <em>destar</em>. Aksesoris seperti keris kecil, ikat pinggang songket, atau hiasan bahu menandai kedudukan adat (misal penghulu atau pemimpin adat). Pemilihan motif dan cara pemakaian menyampaikan pesan tentang tanggung jawab dan kehormatan.</p>
+
+          <h3>Teknik & Simbol pada Songket</h3>
+          <p>Songket Minangkabau dibuat dengan teknik tenun pelengkap menggunakan benang emas atau perak. Motif yang sering ditemui berakar dari flora, fauna, serta geometris abstrak yang mengandung arti—misalnya motif ulang-ulang melambangkan kesinambungan garis keluarga, motif bunga untuk kemakmuran, motif gelombang untuk hubungan laut-darat (ekonomi tradisional).</p>
+
+          <h3>Fungsi Sosial Busana</h3>
+          <ul class="muted">
+            <li>Menandai status: perkawinan, kedudukan adat, usia, dan peran komunitas.</li>
+            <li>Pelestarian budaya: melalui upacara dan tradisi keluarga.</li>
+            <li>Identitas kolektif: membangun rasa kebersamaan dan kebanggaan.</li>
+          </ul>
+
+          <h3>Pertanyaan Diskusi</h3>
+          <ol class="muted">
+            <li>Bagaimana pakaian dapat menjadi alat diplomasi budaya antar daerah?</li>
+            <li>Apakah modernisasi mengancam teknik pembuatan tradisional seperti songket? Mengapa?</li>
+          </ol>
+        </article>
+
+        <!-- 3. Makanan -->
+        <article id="makanan" class="section reveal">
+          <span class="kicker">3 • Makanan</span>
+          <h2>Makanan Khas Padang — Teknik Memasak, Simbol, dan Ritual Sosial</h2>
+
+          <p class="muted">Gambaran singkat:</p>
+          <p>Dapur Minangkabau adalah ruang kreativitas kuliner: tekanan pada rasa pedas, santan, dan proses memasak yang panjang (seperti pada rendang) melahirkan hidangan yang tahan lama dan kaya cita rasa. Banyak makanan juga terkait ritual—misal penyajian untuk acara pernikahan atau adat tertentu.</p>
+
+          <div class="divider"></div>
+
+          <h3>Rendang — Teknik & Makna</h3>
+          <p>Rendang bukan sekadar daging bersantan dan bumbu; ia adalah proses kuliner yang panjang: daging direbus lama dengan santan dan rempah hingga semua cairan menguap dan bumbu menyatu. Proses ini memberi rendang kemampuan disimpan lama — yang berperan penting pada masa pra-kulkas. Secara simbolik, rendang melambangkan ketabahan, ketekunan, dan kemewahan sederhana.</p>
+
+          <h3>Gulai, Dendeng, dan Ayam Pop — Variasi & Konteks</h3>
+          <p>
+            <strong>Gulai</strong> hadir dalam berbagai versi (ikan, ayam, kambing) dengan kuah rempah-santan; <strong>dendeng balado</strong> adalah daging yang dikeringkan dan dimasak dengan sambal balado yang tajam; <strong>ayam pop</strong> menonjol karena teknik memasak yang lembut dan penyajian yang relatif sederhana.
+          </p>
+
+          <h3>Pola Penyajian — Rumah Makan Padang</h3>
+          <p>Model rumah makan Padang (hidang di meja tanpa daftar menu) menunjukkan prinsip keramahan dan pilihan beragam: pelanggan memilih dari lauk yang sudah disajikan di meja — ini menandakan ketersediaan dan kemurahan. Sistem ini juga menyimbolkan ekonomi berbasis keluarga (rumah makan keluarga) dan keterikatan pada resep turun-temurun.</p>
+
+          <h3>Aspek Ekonomi & Sosial</h3>
+          <ul class="muted">
+            <li>Kuliner sebagai sumber mata pencaharian: usaha rumah makan, pedagang keliling.</li>
+            <li>Peran diaspora: masakan Minang menyebar melalui perantau ke berbagai kota di Indonesia dan mancanegara.</li>
+            <li>Inovasi vs tradisi: adaptasi resep untuk selera global tanpa kehilangan hakikat rasa.</li>
+          </ul>
+        </article>
+
+        <!-- 4. Rumah Gadang -->
+        <article id="rumah" class="section reveal">
+          <span class="kicker">4 • Rumah Adat</span>
+          <h2>Rumah Gadang — Arsitektur, Fungsi Sosial, dan Simbolisme</h2>
+
+          <p class="muted">Intisari:</p>
+          <p>Rumah Gadang adalah manifestasi arsitektur Minangkabau: atap bertingkat melengkung menyerupai tanduk kerbau, struktur panggung, dan ruangan yang dirancang untuk fungsi kolektif. Secara budaya, Rumah Gadang menegaskan struktur matrilineal—kepemilikan tanah dan harta waris berpindah melalui garis perempuan. Selain tempat tinggal, rumah berfungsi sebagai pusat musyawarah keluarga (baralek) dan penyimpanan adat.</p>
+
+          <div class="divider"></div>
+
+          <h3>Elemen-Arsitektural & Artikulasi Ruang</h3>
+          <p>
+            <strong>Atap</strong> berlapis: meniru tanduk kerbau dan berfungsi sebagai simbol kekuatan. <strong>Tiang</strong> penyangga (sulung, randang) menyusun struktur, sedangkan <strong>ruang depan</strong> (yang luas) berfungsi untuk pertemuan keluarga dan acara adat. Dinding sering dihias ukiran geometris yang memuat simbol-simbol lokal.
+          </p>
+
+          <h3>Matrilineal & Kepemilikan</h3>
+          <p>Rumah Gadang biasanya dimiliki oleh keluarga besar matrilineal; keturunan perempuan yang menentukan pewarisan rumah. Ini memengaruhi dinamika gender: perempuan memiliki kedudukan penting dalam pengelolaan rumah tangga dan pemeliharaan adat, sementara laki-laki sering berperan sebagai pengurus luar (urusan publik, pertahanan).</p>
+
+          <h3>Fungsi Ritual & Simbolik</h3>
+          <ul class="muted">
+            <li>Tempat upacara pernikahan, kelahiran, dan acara adat lainnya.</li>
+            <li>Ruang musyawarah keluarga (mengokok-kan keputusan adat).</li>
+            <li>Sarana pendidikan nilai-nilai leluhur bagi generasi muda.</li>
+          </ul>
+
+          <h3>Tantangan Pelestarian</h3>
+          <p>Urbanisasi, biaya perawatan, dan perubahan gaya hidup menimbulkan tantangan pelestarian Rumah Gadang. Strategi pelestarian melibatkan dokumentasi, restorasi berbasis komunitas, dan adaptasi fungsi untuk keperluan ekonomi (mis. homestay budaya) tanpa merusak nilai-nilai adat.</p>
+        </article>
+
+      </section>
+
+      <!-- Sidebar -->
+      
+    </main>
+
+    <footer>
+      <div class="muted">Dibuat untuk Gallery Walk — Ringkas, tajam, dan fokus pada substansi.</div>
+      <div class="muted">© Keberagaman di Padang</div>
+    </footer>
+  </div>
+
+  <script>
+    // smooth anchor scrolling
+    document.querySelectorAll('.pill').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-target');
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.scrollIntoView({behavior:'smooth',block:'start'});
+        // highlight briefly
+        el.animate([{boxShadow:'0 0 0 rgba(0,0,0,0)'},{boxShadow:'0 18px 40px rgba(124,58,237,0.08)'}],{duration:480,fill:'forwards'});
+      });
+    });
+
+    // reveal on intersection
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting) en.target.classList.add('show');
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // keyboard navigation: 1-4
+    window.addEventListener('keyup', (e)=>{
+      if(['1','2','3','4'].includes(e.key)){
+        const map={'1':'konflik','2':'pakaian','3':'makanan','4':'rumah'};document.getElementById(map[e.key]).scrollIntoView({behavior:'smooth'});
+      }
+    });
+  </script>
+</body>
+</html>
